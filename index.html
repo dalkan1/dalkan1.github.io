@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dalkan Platea – Bauleitung digital</title>
+<meta name="description" content="Dalkan Platea: Baustellen-App für Bauleitung und Objektüberwachung – Bautagebuch, Mängel, Pläne, BIM-Fortschritt, Terminplan und Kosten. Live-Demo.">
+<meta name="theme-color" content="#13233D">
+<link rel="icon" href="img/platea_icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/platea_app_icon_180.png">
+<meta property="og:title" content="Dalkan Platea – Bauleitung digital">
+<meta property="og:description" content="Bautagebuch, Mängel, Pläne, BIM-Fortschritt, Terminplan und Kosten in einer App. Live-Demo im Browser.">
+<meta property="og:image" content="img/bim.jpg">
+<style>
+@font-face{font-family:"Barlow Condensed";font-weight:500;font-display:swap;src:url(fonts/barlowcond-500.woff) format("woff")}
+@font-face{font-family:"Barlow Condensed";font-weight:600;font-display:swap;src:url(fonts/barlowcond-600.woff) format("woff")}
+@font-face{font-family:"Barlow Condensed";font-weight:700;font-display:swap;src:url(fonts/barlowcond-700.woff) format("woff")}
+@font-face{font-family:"IBM Plex Sans";font-weight:100 700;font-display:swap;src:url(fonts/plexsans-var.woff) format("woff")}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-display:swap;src:url(fonts/plexmono-400.woff) format("woff")}
+:root{--navy:#13233D;--navy2:#0A111D;--ink:#0D1828;--muted:#4A576C;--line:#D5DCE5;--bg:#EDF0F4;--surface:#fff;--accent:#C2410C;--accent2:#9A3412;--soft:#FDE8DC;
+  --fd:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--fb:"IBM Plex Sans","Segoe UI",Roboto,Helvetica,Arial,sans-serif;--fm:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--fb);-webkit-font-smoothing:antialiased}
+a{color:inherit}img{max-width:100%;height:auto;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.lang-en [data-l=de],.lang-de [data-l=en]{display:none!important}
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(19,35,61,.97);color:#fff;border-bottom:3px solid var(--accent)}
+header .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:30px;height:30px;filter:brightness(0) invert(1)}
+.brand .wm{font:700 1.15rem/1 var(--fd);letter-spacing:.14em}.brand .wm span{font-weight:500;opacity:.7;margin-right:.35em}
+nav.top{margin-left:auto;display:flex;gap:22px;align-items:center;font-size:.95rem}
+nav.top a{text-decoration:none;opacity:.85}nav.top a:hover{opacity:1}
+.lang{display:flex;border:1px solid rgba(255,255,255,.3);border-radius:8px;overflow:hidden}
+.lang button{background:none;border:0;color:#fff;font:600 .8rem var(--fb);padding:6px 10px;cursor:pointer;opacity:.7}
+.lang button[aria-pressed=true]{background:#fff;color:var(--navy);opacity:1}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:12px 20px;font:600 1rem var(--fb);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.btn.primary{background:var(--accent);color:#fff}.btn.primary:hover{background:var(--accent2)}
+.btn.ghost{border-color:rgba(255,255,255,.4);color:#fff}.btn.ghost:hover{background:rgba(255,255,255,.08)}
+.btn.line{border-color:var(--line);background:#fff;color:var(--navy)}
+@media(max-width:820px){nav.top a.nl{display:none}}
+@media(max-width:560px){.brand .wm span{display:none}nav.top{gap:10px}header .btn{padding:7px 11px!important;font-size:.85rem}.lang button{padding:5px 8px}}
+/* hero */
+.hero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(180deg,#000 30%,transparent)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding-top:72px;padding-bottom:84px}
+.kicker{font:600 .82rem var(--fm);letter-spacing:.12em;text-transform:uppercase;color:#F5A97F}
+.hero h1{font:700 clamp(2.6rem,5.4vw,4.4rem)/1.02 var(--fd);letter-spacing:.01em;margin:14px 0 18px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p.lead{font-size:1.15rem;opacity:.86;max-width:36ch;margin:0 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero .shots{position:relative}
+.frame{border-radius:14px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.12);background:#fff}
+.hero .phone{position:absolute;right:-12px;bottom:-40px;width:26%;border-radius:22px;border:5px solid #0A111D;box-shadow:0 20px 50px rgba(0,0,0,.5);overflow:hidden}
+.note{font-size:.85rem;opacity:.65;margin-top:16px}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;padding-top:48px}.hero .phone{width:34%;right:8px}}
+/* facts */
+.facts{background:#fff;border-bottom:1px solid var(--line)}
+.facts .wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.fact{padding:22px 18px;border-left:1px solid var(--line)}.fact:first-child{border-left:0}
+.fact b{display:block;font:700 1.25rem/1.1 var(--fd);letter-spacing:.03em;color:var(--navy)}.fact span{font-size:.88rem;color:var(--muted)}
+@media(max-width:900px){.facts .wrap{grid-template-columns:1fr 1fr}.fact{border-left:0;border-top:1px solid var(--line)}}
+/* sections */
+section.s{padding:84px 0}
+h2{font:700 clamp(2rem,3.6vw,2.9rem)/1.05 var(--fd);margin:0 0 14px;color:var(--navy)}
+.sub{color:var(--muted);max-width:62ch;margin:0 0 40px}
+.feat{display:grid;grid-template-columns:1fr 1.35fr;gap:48px;align-items:center;margin:0 0 84px}
+.feat:nth-child(even){grid-template-columns:1.35fr 1fr}.feat:nth-child(even) .txt{order:2}
+.feat:last-child{margin-bottom:0}
+.feat h3{font:700 1.9rem/1.1 var(--fd);color:var(--navy);margin:8px 0 12px}
+.feat .tag{font:600 .78rem var(--fm);letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
+.feat ul{padding:0;margin:16px 0 0;list-style:none}.feat li{padding:7px 0 7px 26px;position:relative;border-top:1px solid var(--line)}
+.feat li::before{content:"";position:absolute;left:2px;top:15px;width:10px;height:10px;background:var(--accent);border-radius:2px}
+.feat .frame{box-shadow:0 18px 50px rgba(13,24,40,.18);border-color:var(--line)}
+@media(max-width:900px){.feat,.feat:nth-child(even){grid-template-columns:1fr;gap:22px}.feat:nth-child(even) .txt{order:0}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+.card h4{font:700 1.3rem/1.15 var(--fd);margin:0 0 6px;color:var(--navy)}.card p{margin:0;color:var(--muted);font-size:.95rem}
+.card .ref{font:400 .78rem var(--fm);color:var(--accent);margin-top:10px;display:block}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.dark{background:var(--navy);color:#fff}.dark h2{color:#fff}.dark .sub{color:rgba(255,255,255,.75)}
+.twins{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.twin{border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:28px;display:flex;gap:22px;align-items:flex-start}
+.twin img{width:64px;height:64px;filter:brightness(0) invert(1)}
+.twin h3{font:700 1.8rem/1 var(--fd);letter-spacing:.06em;margin:0 0 4px}.twin h3 small{display:block;font:500 .8rem var(--fd);letter-spacing:.24em;opacity:.7;margin-bottom:4px}
+.twin p{margin:6px 0 0;opacity:.82}.pill{display:inline-block;font:600 .75rem var(--fm);padding:3px 9px;border-radius:999px;background:var(--accent);margin-top:12px}
+.pill.off{background:rgba(255,255,255,.14)}
+@media(max-width:820px){.twins{grid-template-columns:1fr}}
+.about{display:grid;grid-template-columns:1fr 1.6fr;gap:48px;align-items:start}
+.about .who{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px}
+.about .who b{font:700 1.8rem/1.05 var(--fd);color:var(--navy);display:block}.about .who span{color:var(--muted)}
+.about .who ul{list-style:none;padding:0;margin:18px 0 0;font-size:.95rem}.about .who li{padding:6px 0;border-top:1px solid var(--line)}
+@media(max-width:820px){.about{grid-template-columns:1fr}}
+.demo-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:40px;display:flex;gap:30px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.demo-box h2{margin:0}
+footer{background:var(--navy2);color:rgba(255,255,255,.7);font-size:.9rem;padding:34px 0}
+footer .wrap{display:flex;gap:18px;justify-content:space-between;flex-wrap:wrap}footer a{color:#fff}
+</style>
+</head>
+<body class="lang-de">
+<header><div class="wrap">
+  <a class="brand" href="#top"><img src="img/platea.svg" alt=""><span class="wm"><span>DALKAN</span>PLATEA</span></a>
+  <nav class="top">
+    <a class="nl" href="#funktionen"><span data-l="de">Funktionen</span><span data-l="en">Features</span></a>
+    <a class="nl" href="#ueber"><span data-l="de">Über mich</span><span data-l="en">About</span></a>
+    <div class="lang" role="group" aria-label="Sprache"><button data-set="de" aria-pressed="true">DE</button><button data-set="en" aria-pressed="false">EN</button></div>
+    <a class="btn primary" href="app/" style="padding:8px 14px;white-space:nowrap"><span data-l="de">Demo öffnen</span><span data-l="en">Open demo</span></a>
+  </nav>
+</div></header>
+
+<section class="hero" id="top"><div class="wrap">
+  <div>
+    <div class="kicker"><span data-l="de">Bauleitung · Objektüberwachung · LPH 8</span><span data-l="en">Site management · Construction supervision</span></div>
+    <h1><span data-l="de">Die Baustelle.<br>Dokumentiert, <em>bevor</em> es Streit gibt.</span><span data-l="en">The site.<br>Documented <em>before</em> it turns into a dispute.</span></h1>
+    <p class="lead"><span data-l="de">Dalkan Platea bündelt Bautagebuch, Mängel, Pläne, BIM-Fortschritt, Terminplan und Kosten in einer App – für das Tablet auf der Baustelle, mit Schreiben und Berichten nach VOB/B.</span><span data-l="en">Dalkan Platea brings site diary, defects, plans, BIM progress, schedule and costs into one app – built for the tablet on site, with letters and reports based on German VOB/B.</span></p>
+    <div class="cta"><a class="btn primary" href="app/"><span data-l="de">Live-Demo öffnen</span><span data-l="en">Open live demo</span> →</a><a class="btn ghost" href="#funktionen"><span data-l="de">Funktionen ansehen</span><span data-l="en">See features</span></a></div>
+    <p class="note"><span data-l="de">Demo mit fiktiver Musterbaustelle. Keine Anmeldung, Daten bleiben im eigenen Browser.</span><span data-l="en">Demo with a fictional sample site. No sign-up, data stays in your own browser.</span></p>
+  </div>
+  <div class="shots"><div class="frame"><img src="img/bim.jpg" alt="BIM-Fortschritt am IFC-Modell" width="1440" height="900"></div><div class="phone"><img src="img/lage_m.jpg" alt="Lagebild auf dem Smartphone"></div></div>
+</div></section>
+
+<div class="facts"><div class="wrap">
+  <div class="fact"><b>VOB/B · BGB</b><span data-l="de">Mängelanzeige, Nachfrist, Behinderung, Abnahme</span><span data-l="en">Defect notices, final deadlines, hindrance, acceptance</span></div>
+  <div class="fact"><b>IFC · 3D</b><span data-l="de">BIM-Modell direkt im Browser, Fortschritt je Bauteil</span><span data-l="en">BIM model in the browser, progress per element</span></div>
+  <div class="fact"><b>Soll / Ist</b><span data-l="de">Terminplan und Kosten am realen Leistungsstand</span><span data-l="en">Schedule and costs against actual progress</span></div>
+  <div class="fact"><b>PDF</b><span data-l="de">Berichte und Schreiben auf Deutsch, auf Knopfdruck</span><span data-l="en">Reports and letters in German, one click</span></div>
+  <div class="fact"><b>DE · EN · TR</b><span data-l="de">Oberfläche dreisprachig, Ausgaben auf Deutsch</span><span data-l="en">Interface in three languages, outputs in German</span></div>
+</div></div>
+
+<section class="s" id="funktionen"><div class="wrap">
+  <h2><span data-l="de">Was die App kann</span><span data-l="en">What it does</span></h2>
+  <p class="sub"><span data-l="de">Entstanden aus dem Alltag der Objektüberwachung: Was auf der Baustelle passiert, wird dort erfasst – und landet sofort in Bericht, Termin und Kosten.</span><span data-l="en">Built from day-to-day construction supervision: what happens on site is recorded on site – and flows straight into reports, schedule and costs.</span></p>
+
+  <div class="feat"><div class="txt"><div class="tag">01 · BIM</div><h3><span data-l="de">Baufortschritt am 3D-Modell</span><span data-l="en">Progress on the 3D model</span></h3>
+    <p><span data-l="de">IFC-Datei aus SketchUp, Revit oder ArchiCAD laden, Bauteile antippen, Status setzen. Der Fortschritt wird je Geschoss und Bauteilgruppe berechnet – inklusive Volumen.</span><span data-l="en">Load an IFC file from SketchUp, Revit or ArchiCAD, tap elements, set their status. Progress is calculated per level and element group – including volumes.</span></p>
+    <ul><li><span data-l="de">Automatische Erkennung von Geschossen und Bauteilgruppen, auch bei Modellen ohne IFC-Klassen</span><span data-l="en">Automatic detection of levels and element groups, even without IFC classes</span></li><li><span data-l="de">Mängel direkt am Bauteil, „Im Modell zeigen“</span><span data-l="en">Defects linked to elements, “show in model”</span></li><li><span data-l="de">Fortschrittskurve und PDF-Bericht mit Modellansicht</span><span data-l="en">Progress curve and PDF report with model view</span></li></ul></div>
+    <div class="frame"><img src="img/bim.jpg" alt="" loading="lazy" width="1440" height="900"></div></div>
+
+  <div class="feat"><div class="txt"><div class="tag">02 · <span data-l="de">Termine</span><span data-l="en">Schedule</span></div><h3><span data-l="de">Terminplan mit Soll-Ist-Vergleich</span><span data-l="en">Schedule: planned vs. actual</span></h3>
+    <p><span data-l="de">Vorgänge mit Basisplan. Ist der Vorgang mit dem Modell verknüpft, kommt der Ist-Stand automatisch aus dem BIM-Fortschritt. Behinderungen aus dem Bautagebuch erscheinen direkt im Balken.</span><span data-l="en">Activities with baseline. When linked to the model, actual progress comes straight from BIM. Hindrances from the site diary appear on the bars.</span></p>
+    <ul><li><span data-l="de">Verzug und Prognose-Ende je Vorgang</span><span data-l="en">Delay and forecast end per activity</span></li><li><span data-l="de">Soll-Ist-Kurve für das Gesamtprojekt</span><span data-l="en">Planned/actual curve for the whole project</span></li><li><span data-l="de">PDF-Balkenplan mit Behinderungstagen</span><span data-l="en">PDF bar chart with hindrance days</span></li></ul></div>
+    <div class="frame"><img src="img/termine.jpg" alt="" loading="lazy" width="1440" height="900"></div></div>
+
+  <div class="feat"><div class="txt"><div class="tag">03 · <span data-l="de">Kosten</span><span data-l="en">Costs</span></div><h3><span data-l="de">Abrechnung gegen Leistungsstand</span><span data-l="en">Billing vs. actual progress</span></h3>
+    <p><span data-l="de">Aufträge, Nachträge und Abschlagsrechnungen je Firma. Die App vergleicht die Abrechnung mit dem tatsächlichen Leistungsstand und warnt vor Überzahlung.</span><span data-l="en">Contracts, variations and interim invoices per company. The app compares billing with actual progress and warns about overpayment.</span></p>
+    <ul><li><span data-l="de">Prüffristen nach VOB/B § 16, Sicherheitseinbehalt</span><span data-l="en">Payment deadlines (VOB/B § 16), retention</span></li><li><span data-l="de">Prognose inklusive offener Nachträge</span><span data-l="en">Forecast incl. pending variations</span></li><li><span data-l="de">Plausibler Betrag je Rechnung aus dem Leistungsstand</span><span data-l="en">Plausible amount per invoice from progress</span></li></ul></div>
+    <div class="frame"><img src="img/kosten.jpg" alt="" loading="lazy" width="1440" height="900"></div></div>
+
+  <div class="feat"><div class="txt"><div class="tag">04 · <span data-l="de">Mängel</span><span data-l="en">Defects</span></div><h3><span data-l="de">Mängel, Fristen, Schreiben</span><span data-l="en">Defects, deadlines, letters</span></h3>
+    <p><span data-l="de">Mängel mit Foto, Ort und Frist erfassen, auf dem Plan verorten und mit einem Klick als Mängelanzeige oder Nachfristsetzung versenden – mit dem passenden Paragraphen vor und nach der Abnahme.</span><span data-l="en">Record defects with photo, location and deadline, pin them on the plan and issue a defect notice or final-deadline letter in one click – with the right legal reference before and after acceptance.</span></p>
+    <ul><li><span data-l="de">Schnellbegehung: Foto → Titel → nächster Mangel</span><span data-l="en">Quick walk: photo → title → next defect</span></li><li><span data-l="de">§ 4 Abs. 7 / § 13 Abs. 5 VOB/B, §§ 634 ff. BGB</span><span data-l="en">§ 4(7) / § 13(5) VOB/B, §§ 634 ff. BGB</span></li><li><span data-l="de">Mängelliste als PDF mit Planausschnitt</span><span data-l="en">Defect list as PDF with plan excerpt</span></li></ul></div>
+    <div class="frame"><img src="img/defects.jpg" alt="" loading="lazy" width="1440" height="900"></div></div>
+
+  <div class="feat"><div class="txt"><div class="tag">05 · <span data-l="de">Bautagebuch</span><span data-l="en">Site diary</span></div><h3><span data-l="de">Bautagebuch in zwei Minuten</span><span data-l="en">Site diary in two minutes</span></h3>
+    <p><span data-l="de">Wetter, Personal je Firma, Leistungen, Lieferungen mit Lieferscheinen, Behinderungen und Besuche. Der Tagesfortschritt aus dem BIM-Modell wird automatisch ergänzt.</span><span data-l="en">Weather, crews per company, work done, deliveries with delivery notes, hindrances and visits. Daily BIM progress is added automatically.</span></p>
+    <ul><li><span data-l="de">Behinderungsanzeige nach § 6 VOB/B</span><span data-l="en">Hindrance notice (VOB/B § 6)</span></li><li><span data-l="de">Wochenbericht und Bautagebuch als PDF</span><span data-l="en">Weekly report and site diary as PDF</span></li></ul></div>
+    <div class="frame"><img src="img/diary.jpg" alt="" loading="lazy" width="1440" height="900"></div></div>
+</div></section>
+
+<section class="s" style="padding-top:0"><div class="wrap">
+  <h2><span data-l="de">Und außerdem</span><span data-l="en">And also</span></h2>
+  <div class="grid">
+    <div class="card"><h4><span data-l="de">Abnahme &amp; Gewährleistung</span><span data-l="en">Acceptance &amp; warranty</span></h4><p><span data-l="de">Protokolle mit Vorbehalten und Vertragsstrafe, Überwachung der Gewährleistungsfristen.</span><span data-l="en">Minutes with reservations and penalty clause, warranty period tracking.</span></p><span class="ref">§ 12 VOB/B · § 640 BGB</span></div>
+    <div class="card"><h4><span data-l="de">Nachträge &amp; Stundenlohn</span><span data-l="en">Variations &amp; daywork</span></h4><p><span data-l="de">Nachtragsübersicht mit Status und Beträgen, Stundenzettel mit Frist.</span><span data-l="en">Variation log with status and amounts, timesheets with deadline.</span></p><span class="ref">§ 2 Abs. 5/6 · § 15 Abs. 3 VOB/B</span></div>
+    <div class="card"><h4><span data-l="de">Arbeitsschutz</span><span data-l="en">Health &amp; safety</span></h4><p><span data-l="de">Wöchentliche Sicherheitsbegehung; Mängel mit einem Tipp als Arbeitsschutz-Mangel.</span><span data-l="en">Weekly safety walk; issues become safety defects with one tap.</span></p><span class="ref">BaustellV</span></div>
+    <div class="card"><h4><span data-l="de">Pläne mit Pins</span><span data-l="en">Plans with pins</span></h4><p><span data-l="de">PDF-Pläne mit Versionen, Mängel direkt auf dem Plan verortet.</span><span data-l="en">PDF plans with versions, defects pinned on the drawing.</span></p></div>
+    <div class="card"><h4><span data-l="de">Besprechungen &amp; Aufgaben</span><span data-l="en">Meetings &amp; tasks</span></h4><p><span data-l="de">Baubesprechungsprotokolle, offene Punkte werden zu Aufgaben mit Frist.</span><span data-l="en">Site meeting minutes; open points become tasks with deadlines.</span></p></div>
+    <div class="card"><h4><span data-l="de">KI-Assistent</span><span data-l="en">AI assistant</span></h4><p><span data-l="de">In der Vollversion kennt Claude (KI) das ganze Projekt, formuliert Texte auf Deutsch und schlägt Mängel und Aufgaben vor.</span><span data-l="en">In the full version Claude (AI) knows the whole project, writes in German and suggests defects and tasks.</span></p></div>
+  </div>
+</div></section>
+
+<section class="s dark"><div class="wrap">
+  <h2><span data-l="de">Zwei Räume. Eine Familie.</span><span data-l="en">Two spaces. One family.</span></h2>
+  <p class="sub"><span data-l="de">Platea ist der offene Platz der römischen Stadt – die Baustelle. Atrium ist der Innenhof des Hauses – das Büro. Beide teilen dieselben Daten.</span><span data-l="en">Platea is the open square of the Roman town – the site. Atrium is the inner courtyard of the house – the office. Both share the same data.</span></p>
+  <div class="twins">
+    <div class="twin"><img src="img/platea.svg" alt=""><div><h3><small>DALKAN</small>PLATEA</h3><p><span data-l="de">Für die Baustelle: erfassen, prüfen, dokumentieren.</span><span data-l="en">For the site: record, check, document.</span></p><span class="pill"><span data-l="de">Demo verfügbar</span><span data-l="en">Demo available</span></span></div></div>
+    <div class="twin"><img src="img/atrium.svg" alt=""><div><h3><small>DALKAN</small>ATRIUM</h3><p><span data-l="de">Für das Büro: Ausschreibung, Vergabe, Termine und Kosten planen.</span><span data-l="en">For the office: tendering, award, planning schedule and costs.</span></p><span class="pill off"><span data-l="de">in Entwicklung</span><span data-l="en">in development</span></span></div></div>
+  </div>
+</div></section>
+
+<section class="s" id="ueber"><div class="wrap about">
+  <div class="who"><b>Doğukan Alkan</b><span data-l="de">Architekt · Köln</span><span data-l="en">Architect · Cologne, Germany</span>
+    <ul><li><span data-l="de">Bauleitung &amp; Objektüberwachung (LPH 8)</span><span data-l="en">Site management &amp; construction supervision</span></li><li><span data-l="de">BIM · IFC</span><span data-l="en">BIM · IFC</span></li><li><span data-l="de">Sprachen: Deutsch · Englisch · Türkisch</span><span data-l="en">Languages: German · English · Turkish</span></li></ul></div>
+  <div><h2><span data-l="de">Über das Projekt</span><span data-l="en">About the project</span></h2>
+    <p><span data-l="de">Ich bin Architekt und arbeite an der Schnittstelle zwischen Planung und Baustelle. Dalkan Platea ist mein eigenes Werkzeug: Es bildet die Abläufe der Bauleitung so ab, wie ich sie verstehe – vom Bautagebuch über die Mängelverfolgung nach VOB/B bis zum Abgleich von Terminplan und Kosten mit dem tatsächlichen Baufortschritt im BIM-Modell.</span><span data-l="en">I am an architect working at the interface between design and construction site. Dalkan Platea is my own tool: it reflects site management as I understand it – from the site diary and VOB/B defect tracking to comparing schedule and costs with actual progress in the BIM model.</span></p>
+    <p><span data-l="de">Konzept, Fachinhalte und Gestaltung stammen von mir; bei der Programmierung hat mich Claude (Anthropic) als KI-Werkzeug unterstützt.</span><span data-l="en">Concept, domain content and design are my own; Claude (Anthropic) supported me as an AI tool in programming.</span></p>
+  </div>
+</div></section>
+
+<section class="s" style="padding-top:0"><div class="wrap"><div class="demo-box">
+  <div><h2><span data-l="de">Selbst ausprobieren</span><span data-l="en">Try it yourself</span></h2><p class="sub" style="margin:8px 0 0"><span data-l="de">Musterbaustelle K-01 mit 3D-Modell, Mängeln, Terminplan und Kosten. Am besten auf Tablet oder Laptop.</span><span data-l="en">Sample site K-01 with 3D model, defects, schedule and costs. Best on tablet or laptop.</span></p></div>
+  <a class="btn primary" href="app/"><span data-l="de">Live-Demo öffnen</span><span data-l="en">Open live demo</span> →</a>
+</div></div></section>
+
+<footer><div class="wrap"><span>© 2026 Doğukan Alkan · Dalkan Platea</span><span><a href="impressum.html"><span data-l="de">Impressum</span><span data-l="en">Legal notice</span></a> · <a href="datenschutz.html"><span data-l="de">Datenschutz</span><span data-l="en">Privacy</span></a></span></div></footer>
+<script>
+(function(){var b=document.body,set=function(l){b.className='lang-'+l;document.documentElement.lang=l;document.querySelectorAll('.lang button').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.set===l)});try{localStorage.setItem('dp.lang',l)}catch(e){}};
+var l=null;try{l=localStorage.getItem('dp.lang')}catch(e){}if(!l)l=(navigator.language||'').slice(0,2)==='en'?'en':'de';set(l==='en'?'en':'de');
+document.querySelectorAll('.lang button').forEach(function(x){x.addEventListener('click',function(){set(x.dataset.set)})})})();
+</script>
+</body>
+</html>
