@@ -18,6 +18,7 @@ including the source code – requires the author's prior written permission.
 This is not an open-source licence.
 
 Ausgenommen / Excluded: Schriftdateien in fonts/ (SIL Open Font License, siehe
-fonts/), three.js und jsPDF in app/lib/ (MIT-Lizenz, jeweilige Urheber).
+fonts/), three.js und jsPDF (MIT-Lizenz) sowie SheetJS (Apache-2.0)
+in app/lib/ – jeweilige Urheber.
 
 Kontakt / Contact: siehe impressum.html
