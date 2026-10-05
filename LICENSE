@@ -1,0 +1,23 @@
+Copyright (c) 2026 Doğukan Alkan. Alle Rechte vorbehalten. / All rights reserved.
+
+DEUTSCH
+Name und Logo „Dalkan Platea“ und „Dalkan Atrium“, Konzept, Texte, Gestaltung,
+Bilder und Software in diesem Repository sind urheberrechtlich geschützt.
+Die Website und die Demo dürfen ausschließlich zur Ansicht im Browser genutzt
+werden. Jede Vervielfältigung, Bearbeitung, Weitergabe, Veröffentlichung oder
+sonstige Nutzung – ganz oder in Teilen, auch des Quellcodes – bedarf der
+vorherigen schriftlichen Zustimmung des Urhebers.
+Diese Lizenz ist keine Open-Source-Lizenz.
+
+ENGLISH
+The names and logos "Dalkan Platea" and "Dalkan Atrium", concept, texts,
+design, images and software in this repository are protected by copyright.
+The website and demo may only be viewed in a browser. Any copying,
+modification, redistribution, publication or other use – in whole or in part,
+including the source code – requires the author's prior written permission.
+This is not an open-source licence.
+
+Ausgenommen / Excluded: Schriftdateien in fonts/ (SIL Open Font License, siehe
+fonts/), three.js und jsPDF in app/lib/ (MIT-Lizenz, jeweilige Urheber).
+
+Kontakt / Contact: siehe impressum.html
