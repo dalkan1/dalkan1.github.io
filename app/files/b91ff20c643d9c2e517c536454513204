@@ -1,0 +1,30 @@
+### CEVRE MODELI RAPORU
+Adres          : Musterweg 12, 50827 Köln (fiktiv)
+Bulunan        : Musterweg 12, Musterhausen, Köln, Nordrhein-Westfalen, 50827, Deutschland (synthetisches Beispiel)
+Eyalet         : Nordrhein-Westfalen
+Merkez (UTM32) : 352410.000 , 5646230.000
+Yaricap        : 150 m (cap 300 m)
+KAYDIRMA X     : -352410.000
+KAYDIRMA Y     : -5646230.000
+KAYDIRMA Z     : -51.200
+  (Gercek koordinata donmek icin bu degerleri EKLEYIN)
+Bina sayisi    : 56
+Arazi yuzeyi   : 2828 (5.0 m izgara)
+Yuzey sayisi   : 504
+Yaricap disi   : 6
+
+--- YOLLAR / ZEMIN KULLANIMI (OpenStreetMap) ---
+yesil          : 2
+su             : 1
+yaya           : 3
+yol            : 3
+yol_aks        : 3
+demir          : 1
+adlar          : 3
+blok           : 7
+osm_bina_eklendi : 0
+osm_bina_zaten_vardi : 0
+
+Kaynak: resmi acik LoD2 3D bina modeli + DGM1 arazi modeli.
+Yollar ve zemin kullanimi: (c) OpenStreetMap contributors
+Sunumlarda kaynak gosterimi gereklidir.
