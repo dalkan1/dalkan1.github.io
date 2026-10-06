@@ -9,7 +9,7 @@
 body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--fb);-webkit-font-smoothing:antialiased}
 a{color:inherit}img{max-width:100%;height:auto;display:block}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
-.lang-en [data-l=de],.lang-de [data-l=en]{display:none!important}
+body:not(.lang-de) [data-l=de],body:not(.lang-en) [data-l=en],body:not(.lang-tr) [data-l=tr]{display:none!important}
 header{position:sticky;top:0;z-index:20;background:rgba(19,35,61,.97);color:#fff;border-bottom:3px solid var(--accent)}
 header .wrap{display:flex;align-items:center;gap:20px;height:64px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
