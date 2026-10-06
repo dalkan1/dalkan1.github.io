@@ -2,6 +2,7 @@
 
 Zwei Zwillinge, ein Projekt: **Dalkan Atrium** für das Architekturbüro (LPH 1–7) und **Dalkan Platea** für die Baustelle (LPH 8–9) – öffentliche Demo mit fiktiven Musterprojekten.
 
+- Adresse: https://dalkan1.github.io/
 - Startseite: `index.html` (beide Zwillinge) · `atrium.html` · `platea.html`
 - Demo-App: `app/` (läuft im Browser, Daten nur lokal)
 
